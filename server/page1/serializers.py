@@ -12,3 +12,9 @@ class ServerSealizerProduct(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ('id', 'name', 'price', 'shopFK')
+
+
+class ServerSealizerComment(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ('id', 'rate', 'commentLine', 'shopFK')

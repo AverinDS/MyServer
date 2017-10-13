@@ -1,9 +1,6 @@
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
 from .models import Shop, Product, Comment
-from .serializers import ServerSealizerShop, ServerSealizerProduct
-from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONParser
+from .serializers import ServerSealizerShop, ServerSealizerProduct, ServerSealizerComment
 
 
 def index(request):
@@ -26,15 +23,26 @@ def select_product_from_shop(request, shopId):
     return JsonResponse(serializer.data, safe=False)
 
 
-def get_comment_to_shop(request, shop, rate, comment):
+def get_comments_to_shop(request, shopId):
+    comments = Comment.objects.filter(shopFK=shopId)
+    serializer = ServerSealizerComment(comments, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
+def update_comment(request, shopId, newLine):
     c = ""
 
 
-def update_comment(request, oldLine, newLine):
+def delete_comment(request, shopId, line ):
     c = ""
 
 
-def delete_comment(request, line):
-    c = ""
+def create_comment(request, shopId, line, rate_user):
+    comment = Comment(rate=rate_user, commentLine=line, shopFK=shopId)
+    try:
+        comment.save()
+        return HttpResponse("success", status=200)
+    except():
+        return HttpResponse("fail", status=500)
 
 
