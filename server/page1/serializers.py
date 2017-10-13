@@ -6,3 +6,9 @@ class ServerSealizerShop(serializers.ModelSerializer):
     class Meta:
         model = Shop
         fields = ('id', 'name', 'adress')
+
+
+class ServerSealizerProduct(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ('id', 'name', 'price', 'shopFK')
