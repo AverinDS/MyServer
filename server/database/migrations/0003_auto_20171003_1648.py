@@ -9,7 +9,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('page1', '0002_auto_20171002_1739'),
+        ('database', '0002_auto_20171002_1739'),
     ]
 
     operations = [
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('rate', models.IntegerField(default=0)),
                 ('commentLine', models.TextField(default='')),
-                ('shopFK', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='page1.Shop')),
+                ('shopFK', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='database.Shop')),
             ],
             options={
                 'db_table': 'comment',
@@ -28,6 +28,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='product',
             name='shopFK',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='page1.Shop'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='database.Shop'),
         ),
     ]

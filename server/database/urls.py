@@ -1,5 +1,4 @@
 from django.conf.urls import url
-
 from .controller import controller
 
 urlpatterns = [
