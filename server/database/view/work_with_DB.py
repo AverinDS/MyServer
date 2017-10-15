@@ -16,9 +16,9 @@ def get_comments_about_shop(shopId):
 
 
 def create_comment(commentOfUser, rateUser, idShop):
-    comment = Comment(rate=rateUser, bodyOfLine=commentOfUser, shopFK=idShop)
+    comment = Comment(rate=rateUser, commentLine=commentOfUser, shopFK=Shop.objects.get(id=idShop))
     comment.save()
-    return Comment.objects.filter(rate=rateUser, bodyOfLine=commentOfUser, shopFK=idShop)
+    return True
 
 
 def update_comment(idComment, newRate, newComment):
@@ -32,5 +32,3 @@ def update_comment(idComment, newRate, newComment):
 def delete_comment(idComment):
     comment = Comment.objects.filter(id=idComment)
     comment.delete()
-
-

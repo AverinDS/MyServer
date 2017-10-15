@@ -1,8 +1,12 @@
 from django.http import HttpResponse, JsonResponse
+from django.template.context_processors import csrf
+from django.views.decorators.csrf import csrf_exempt
+
 from ..view import work_with_DB as DB
 from ..view.serializers.SerializerShop import SerializerShop
 from ..view.serializers.SerializerProduct import SerializerProduct
 from ..view.serializers.SerializerComment import SerializerComment
+import json
 
 
 # it's method for checking
@@ -26,15 +30,15 @@ def get_comments_to_shop(request, shopId):
 
 
 # POST
+@csrf_exempt
 def create_comment(request):
-    bodyComment = request.POST.get('bodyComment')
-    rate = request.POST.get('rate')
-    idShop = request.POST.get('idShop')
-
-    return JsonResponse(SerializerComment(DB.create_comment(bodyComment, rate, idShop), many=False).data, safe=False)
+    json_data = json.loads(request.POST.get('comment'))
+    return HttpResponse(DB.create_comment(commentOfUser=json_data[0]['commentLine'], rateUser=json_data[0]['rate'],
+                                          idShop=json_data[0]['shopFK']))
 
 
 # POST
+# !DON'T WORK
 def update_comment(request):
     idComment = request.POST.get('idComment')
     newRate = request.POST.get('newRate')
@@ -44,10 +48,9 @@ def update_comment(request):
                         safe=False)
 
 
-
 # POST
+# !DON'T WORK
 def delete_comment(request):
     idComment = request.POST.get('idComment')
     DB.delete_comment(idComment)
     return HttpResponse("Success")
-
