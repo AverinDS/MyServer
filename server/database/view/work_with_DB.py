@@ -18,17 +18,17 @@ def get_comments_about_shop(shopId):
 def create_comment(commentOfUser, rateUser, idShop):
     comment = Comment(rate=rateUser, commentLine=commentOfUser, shopFK=Shop.objects.get(id=idShop))
     comment.save()
-    return True
-
+    return Comment.objects.filter(rate=rateUser, commentLine=commentOfUser, shopFK=Shop.objects.get(id=idShop)).last().id
 
 def update_comment(idComment, newRate, newComment):
-    comment = Comment.objects.filter(id=idComment)
+    comment = Comment.objects.get(id=idComment)
     comment.rate = newRate
     comment.commentLine = newComment
     comment.save()
-    return Comment.objects.filter(id=idComment)
+    return True
 
 
 def delete_comment(idComment):
-    comment = Comment.objects.filter(id=idComment)
+    comment = Comment.objects.get(id=idComment)
     comment.delete()
+    return True

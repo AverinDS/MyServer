@@ -33,24 +33,25 @@ def get_comments_to_shop(request, shopId):
 @csrf_exempt
 def create_comment(request):
     json_data = json.loads(request.POST.get('comment'))
-    return HttpResponse(DB.create_comment(commentOfUser=json_data[0]['commentLine'], rateUser=json_data[0]['rate'],
-                                          idShop=json_data[0]['shopFK']))
-
+    comment = json_data[0]['commentLine']
+    rate = json_data[0]['rate']
+    id_shop = json_data[0]['shopFK']
+    return HttpResponse(DB.create_comment(commentOfUser=comment, rateUser=rate, idShop=id_shop))
 
 # POST
-# !DON'T WORK
+@csrf_exempt
 def update_comment(request):
-    idComment = request.POST.get('idComment')
-    newRate = request.POST.get('newRate')
-    newBodyOfComment = request.POST.get('newComment')
-
-    return JsonResponse(SerializerComment(DB.update_comment(idComment, newRate, newBodyOfComment), many=False).data,
-                        safe=False)
+    json_data = json.loads(request.POST.get('comment'))
+    id_shop = json_data[0]['id']
+    comment = json_data[0]['commentLine']
+    rate = json_data[0]['rate']
+    id_shop = json_data[0]['shopFK']
+    return HttpResponse(DB.update_comment(idComment=id_shop, newRate=rate, newComment=comment))
 
 
 # POST
-# !DON'T WORK
+@csrf_exempt
 def delete_comment(request):
-    idComment = request.POST.get('idComment')
-    DB.delete_comment(idComment)
-    return HttpResponse("Success")
+    json_data = json.loads(request.POST.get('comment'))
+    id_comment = json_data[0]['id']
+    return HttpResponse(DB.delete_comment(idComment=id_comment))
