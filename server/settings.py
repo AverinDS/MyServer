@@ -25,7 +25,7 @@ SECRET_KEY = '=*mm0_^z33v+)x9!wo^3yv%h+=d&(uzf5(r2bgj==gi4z&4p=e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -85,6 +85,7 @@ DATABASES = {
         'USER': 'dbuser',
         'PASSWORD': 'mobilemobile1M!',
         'HOST': '127.0.0.1',
+	'OPTIONS': {'charset': 'utf8'},
         # 'PORT': '5432',
     }
 }
